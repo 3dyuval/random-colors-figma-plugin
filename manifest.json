@@ -1,0 +1,13 @@
+{
+	"name": "Random Colors",
+	"id": "1085275055447293359",
+	"api": "1.0.0",
+	"main": "random-colors.js",
+	"editorType": ["figma", "figjam"],
+	"ui": { "main": "main.html", "about": "about.html" },
+	"menu": [
+		{ "name": "Apply to selection", "command": "apply" },
+		{ "separator": true },
+		{ "name": "Show UI", "command": "ui" }
+	]
+}

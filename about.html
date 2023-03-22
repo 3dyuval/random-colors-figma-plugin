@@ -1,0 +1,60 @@
+<div class="main">
+    <div class="created-by">
+        <p>Plugin created by Yuval Dikerman</p>
+        <strong>3dyuval@gmail.com</strong>
+    </div>
+    <div class="instructions">
+        <h2>Instructions</h2>
+        <ul>
+            <li>Select items with fill.</li>
+            <li>Using the UI: Click <strong>Random Colors!</strong></li>
+            <li>Using Figma Hotkey: Tap <strong>Control + /</strong> (windows) or <strong>Command + /</strong> (mac)
+            </li>
+            <li>Type "Random Colors" to find it in the menu</li>
+            <li>Select <strong>Random Colors</strong></li>
+        </ul>
+    </div>
+    <a href="#" id="link" onClick="parent.postMessage({ pluginMessage: { type: 'main' } }, '*')">Back</a>
+</div>
+
+<!-- <a href="http://yuval.glide.page">Site</a> -->
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap');
+
+    * {
+        font-family: Quicksand, sans-serif;
+    }
+
+    :root {
+        --col0: #A8A5A5;
+        --col1: #4540CF;
+        --col2: #3d3999;
+        --col-bg: #2F2B38;
+    }
+
+    .instructions {
+        font-size: 8px;
+    }
+
+    .instructions li {
+        margin: 2px;
+        list-style: none;
+    }
+
+    #link {
+        color: var(--col10);
+    }
+
+    .main {
+        background-color: var(--col-bg);
+        color: var(--col0);
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: 12px;
+    }
+</style>

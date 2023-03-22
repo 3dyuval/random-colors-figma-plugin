@@ -1,0 +1,188 @@
+<div class="main">
+  <a href="#" id="about" onClick="parent.postMessage({ pluginMessage: { type: 'about' } }, '*');">About</a>
+  <button id="apply">Random colors</button>
+  <span id="status"></span>
+</div>
+<script>
+
+  const statusElement = document.getElementById('status')
+  //dispatch actions
+  document.getElementById('apply').onclick = (e) => {
+    parent.postMessage({ pluginMessage: { type: 'apply-color' } }, '*')
+    e.currentTarget.blur()
+  }
+  //display notifications in UI
+  onmessage = (event) => {
+
+    statusElement.classList.add('on')
+    statusElement.innerHTML = event.data.pluginMessage
+    setTimeout(() => {
+      statusElement.classList.remove('on')
+      statusElement.innerHTML = ""
+    }, 2000)
+  }
+
+
+  function colorText() {
+    //cool text color effect
+    let letters = document.getElementById('apply').innerHTML.split('');
+    const colToHex = (c) => {
+      // Hack so colors are bright enough
+      let color = (c < 75) ? c + 75 : c
+      let hex = color.toString(16);
+      return hex.length == 1 ? "0" + hex : hex;
+    }
+    const rgbToHex = (r, g, b) => {
+      return "#" + colToHex(r) + colToHex(g) + colToHex(b);
+    }
+    const getRandomColor = () => {
+      return rgbToHex(
+        Math.floor(Math.random() * 255),
+        Math.floor(Math.random() * 255),
+        Math.floor(Math.random() * 255));
+    }
+    Array.prototype.randomColor = function () {
+      let html = '';
+      this.map((letter) => {
+        let color = getRandomColor();
+        html +=
+          "<span style=\"color:" + color + "\">"
+          + letter +
+          "</span>";
+      })
+      return html;
+    };
+    document.getElementById('apply').innerHTML = letters.randomColor();
+  }
+
+  colorText()
+
+</script>
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap');
+
+  :root {
+    --col-1: #6a6a6a;
+    --col0: #A8A5A5;
+    --col1: #4540CF;
+    --col2: #3d3999;
+    --col-bg: #2F2B38;
+  }
+
+  * {
+    font-family: 'Quicksand', sans-serif;
+    color: var(--col0);
+  }
+
+  #about {
+    color: var(--col-1);
+    font-size: 12px;
+    transform: translateY(-32px);
+  }
+
+  .main {
+    background-color: var(--col-bg);
+    min-width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #apply {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  span#status {
+    position: absolute;
+    bottom: 15px;
+    transform: translate(-50%, 0);
+  }
+
+  span#status.on {
+    display: inline-block;
+    margin: 0.25em;
+    animation: fadein 2s linear;
+    transform-origin: center;
+    opacity: 0;
+  }
+
+  @keyframes fadein {
+    0% {
+      transform: scale(1.00);
+      opacity: 0;
+    }
+
+    20% {
+      transform: scale(1.02);
+
+    }
+
+    25% {
+      opacity: 1;
+      transform: scale(1.00);
+    }
+
+    95% {
+      opacity: 1;
+      transform: scale(1.00);
+    }
+
+    100% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+
+  button {
+    border-radius: 8px;
+    display: inline-block;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0;
+    text-decoration: none;
+    background: var(--col1);
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out,
+      transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  button span {
+    text-shadow: 3px 3px 8px var(--col2);
+  }
+
+  button {
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  button:hover,
+  button:focus {
+    background: var(--col2);
+  }
+
+  button:focus {
+    outline: 1px solid var(--col0);
+    background: var(--col2);
+    outline-offset: -4px;
+  }
+
+  button:active {
+    transform: scale(0.99);
+  }
+
+  a:hover {
+    color: var(--col2);
+  }
+</style>
